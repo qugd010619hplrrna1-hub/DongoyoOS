@@ -1,12 +1,12 @@
 import { ProductId, SupplyId, AgencyId } from './types';
 
-export const PRODUCTS: Record<ProductId, { name: string, color: string }> = {
-  fumarola: { name: 'Fumarola', color: 'bg-stone-800 text-white' },
-  ceniza_ale: { name: 'Ceniza Ale', color: 'bg-amber-700 text-white' },
-  bocho_cheve: { name: 'Bocho-Cheve', color: 'bg-emerald-600 text-white' },
-  pata_de_perro: { name: 'Pata de Perro', color: 'bg-zinc-400 text-black' },
-  atlixco_flores: { name: 'Atlixco de las flores', color: 'bg-rose-500 text-white' },
-  serenata: { name: 'Serenata', color: 'bg-indigo-900 text-white' },
+export const PRODUCTS: Record<ProductId, { name: string, color: string, price: number }> = {
+  fumarola: { name: 'Fumarola', color: 'bg-stone-800 text-white', price: 80 },
+  ceniza_ale: { name: 'Ceniza Ale', color: 'bg-amber-700 text-white', price: 50 },
+  bocho_cheve: { name: 'Bocho-Cheve', color: 'bg-emerald-600 text-white', price: 50 },
+  pata_de_perro: { name: 'Pata de Perro', color: 'bg-zinc-400 text-black', price: 50 },
+  atlixco_flores: { name: 'Atlixco de las flores', color: 'bg-rose-500 text-white', price: 50 },
+  serenata: { name: 'Serenata', color: 'bg-indigo-900 text-white', price: 80 },
 };
 
 export const SUPPLIES: Record<SupplyId, { name: string, type: 'etiqueta' | 'corcholata' | 'botella' }> = {

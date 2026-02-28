@@ -83,24 +83,49 @@ export default function Reports({ state, onClear }: ReportsProps) {
         </div>
 
         {/* Registro de Actividad */}
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
-          <h3 className="text-lg font-bold mb-4 pb-2 border-b border-stone-200">Registro de Actividad</h3>
-          <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2">
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 md:col-span-2">
+          <h3 className="text-xl font-bold mb-6 pb-3 border-b-2 border-stone-100 flex items-center gap-2">
+            Registro de Actividad (Historial)
+          </h3>
+          <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2">
             {state.logs.length === 0 ? (
-              <p className="text-stone-500 italic">No hay actividad registrada.</p>
+              <div className="text-center py-10 bg-stone-50 rounded-xl border border-dashed border-stone-300">
+                <p className="text-stone-500 text-lg">No hay actividad registrada aún.</p>
+              </div>
             ) : (
-              state.logs.map(log => (
-                <div key={log.id} className="bg-stone-50 p-3 rounded-xl border border-stone-100">
-                  <div className="flex justify-between items-start mb-1">
-                    <span className="font-bold text-stone-700">{log.editorName}</span>
-                    <span className="text-xs text-stone-500">{new Date(log.date).toLocaleString()}</span>
+              state.logs.map(log => {
+                const isSale = log.type === 'sale';
+                return (
+                  <div 
+                    key={log.id} 
+                    className={`p-4 rounded-xl border-l-4 shadow-sm transition-all hover:shadow-md ${
+                      isSale 
+                        ? 'bg-emerald-50 border-l-emerald-500 border-t border-r border-b border-emerald-100' 
+                        : 'bg-blue-50 border-l-blue-500 border-t border-r border-b border-blue-100'
+                    }`}
+                  >
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-3">
+                      <div className="flex items-center gap-3">
+                        <span className={`text-xs uppercase font-black px-3 py-1 rounded-full tracking-wider ${
+                          isSale ? 'bg-emerald-200 text-emerald-800' : 'bg-blue-200 text-blue-800'
+                        }`}>
+                          {isSale ? 'VENTA' : 'EDICIÓN MANUAL'}
+                        </span>
+                        <span className="font-bold text-stone-800 text-lg">{log.editorName}</span>
+                      </div>
+                      <span className="text-sm font-medium text-stone-500 bg-white px-3 py-1 rounded-lg border border-stone-200 shadow-sm">
+                        {new Date(log.date).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}
+                      </span>
+                    </div>
+                    
+                    <div className="bg-white p-3 rounded-lg border border-stone-100/50">
+                      <p className="text-stone-700 font-medium text-base leading-relaxed">
+                        {log.description}
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-sm text-stone-600">{log.description}</p>
-                  <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full mt-2 inline-block ${log.type === 'sale' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'}`}>
-                    {log.type === 'sale' ? 'Venta' : 'Edición Manual'}
-                  </span>
-                </div>
-              ))
+                );
+              })
             )}
           </div>
         </div>
